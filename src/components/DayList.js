@@ -16,18 +16,11 @@ export default function DayList({days, day, setDay}) {
             key={elem.id}
             name={elem.name}
             spots={elem.spots}
-            selected={elem.name === day}
+            selected={elem.name === day} //day is setDay.day i think
             setDay={setDay} />
            
         );
-
-
-
-
-
-
       })
-
 
       }
 

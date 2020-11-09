@@ -1,28 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DayList from "components/DayList";
-
+import Appointment from "components/Appointment";
 import "components/Application.scss";
+import  useApplicationData  from 'hooks/useApplicationData';
 
-const days = [
-  {
-    id: 1,
-    name: "Monday",
-    spots: 2,
-  },
-  {
-    id: 2,
-    name: "Tuesday",
-    spots: 5,
-  },
-  {
-    id: 3,
-    name: "Wednesday",
-    spots: 0,
-  }
-];
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from 'helpers/selectors';
 
-export default function Application(props) {
-  const [day, setDay] = useState("Monday");
+
+
+  export default function Application(props) {
+
+    const {
+      state,
+      setDay,
+      bookInterview,
+      cancelInterview
+    } = useApplicationData();
+    const interviewers = getInterviewersForDay(state, state.day);
+    
+    const dailyAppointments = getAppointmentsForDay(state, state.day);
+    const schedule = dailyAppointments.map((appointment) => {
+      const interview = getInterview(state, appointment.interview);
+      return (
+        <Appointment
+          id={appointment.id}
+          time={appointment.time}
+          key={appointment.id}
+          interview={interview}
+          interviewers={interviewers}
+          bookInterview={bookInterview}
+          cancelInterview={cancelInterview}
+        />
+      );
+    });
+
+
+
 
   return (
     <main className="layout">
@@ -35,9 +48,10 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu"  >
+
           <DayList
-            days={days}
-            day={day}
+            days={state.days}
+            day={state.day}
             setDay={setDay}
           />
         </nav>
@@ -50,7 +64,8 @@ export default function Application(props) {
       </section>
 
       <section className="schedule">
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+        {schedule}
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
