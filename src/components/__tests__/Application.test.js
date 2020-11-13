@@ -10,6 +10,7 @@ import {
   getAllByTestId,
   getByPlaceholderText,
   getByAltText,
+  queryByAltText,
   queryByText,
   mockRejectedValueOnce
   } from "@testing-library/react";
@@ -30,7 +31,7 @@ describe("Application", () => {
   });
 
   it("loads data, books an interview and reduces the spots remaining for Monday by 1", async () => {
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
   
     await waitForElement(() => getByText(container, "Archie Cohen"));
     const appointments = getAllByTestId(container, "appointment");
@@ -77,7 +78,7 @@ describe("Application", () => {
       queryByText(day, "Monday")
     );
   
-    expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
+    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
   });
 
   it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
@@ -97,11 +98,9 @@ describe("Application", () => {
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
     await waitForElement(() => queryByText(appointment, "Lydia Miller-Jones"));
     const day = getAllByTestId(container, "day").find(day =>
-      queryByText(day, "Monday"),
-      console.log(prettyDOM(day))
-
+      queryByText(day, "Monday")
     );
-    expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
+    expect(getByText(day, "no spots remaining")).toBeInTheDocument();
   });
   
 

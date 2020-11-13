@@ -1,38 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
 import "components/Application.scss";
-import  useApplicationData  from 'hooks/useApplicationData';
+import useApplicationData from 'hooks/useApplicationData';
 
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from 'helpers/selectors';
 
 
 
-  export default function Application(props) {
+export default function Application(props) {
 
-    const {
-      state,
-      setDay,
-      bookInterview,
-      cancelInterview
-    } = useApplicationData();
-    const interviewers = getInterviewersForDay(state, state.day);
-    
-    const dailyAppointments = getAppointmentsForDay(state, state.day);
-    const schedule = dailyAppointments.map((appointment) => {
-      const interview = getInterview(state, appointment.interview);
-      return (
-        <Appointment
-          id={appointment.id}
-          time={appointment.time}
-          key={appointment.id}
-          interview={interview}
-          interviewers={interviewers}
-          bookInterview={bookInterview}
-          cancelInterview={cancelInterview}
-        />
-      );
-    });
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview
+  } = useApplicationData();
+
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day);
+  const schedule = dailyAppointments.map((appointment) => {
+    return (
+      <Appointment
+        id={appointment.id}
+        time={appointment.time}
+        key={appointment.id}
+        interview={getInterview(state, appointment.interview)}
+        interviewers={interviewers}
+        bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
+      />
+    );
+  });
 
 
 
@@ -60,7 +59,6 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay } from 'help
           src="images/lhl.png"
           alt="Lighthouse Labs"
         />
-        {/* Replace this with the sidebar elements during the "Project Setup & Familiarity" activity. */}
       </section>
 
       <section className="schedule">

@@ -4,7 +4,6 @@ import Button from "../Button";
 
 
 export default function Confirm(props) {
-  console.log("porpos", props);
   return (
 
 

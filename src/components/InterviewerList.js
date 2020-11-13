@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './InterviewerList.scss';
 import PropTypes from "prop-types";
 
@@ -7,7 +7,6 @@ import InterviewerListItem from './InterviewerListItem';
 export default function InterviewerList(props) {
   
    const interviewers = props.interviewers.map(interviewer => {
-     console.log("from interviewerListpage", props.interviewers)
     return (
       <InterviewerListItem
         key={interviewer.id}

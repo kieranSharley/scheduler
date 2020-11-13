@@ -1,15 +1,13 @@
-import React, { useState, useEffect, state } from 'react';
 
 export function getAppointmentsForDay(state, day) {
 
   let result = [];
   let dailyAppointments = null;
+  
   if (state.days.length === 0) {
     return [];
   }
  
-
-
   for (const theDay of state.days) {
     if (theDay.name === day) {
       dailyAppointments = theDay.appointments;
@@ -61,7 +59,6 @@ export function getInterviewersForDay(state, day) {
     return [];
   }
 
-  console.log(interviewersArr);
 
   for (const intID of interviewersArr) {
     for (const key in state.interviewers) {
