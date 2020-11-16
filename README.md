@@ -1,3 +1,7 @@
+Built and tested a React scheduler app. Allowing users to create interview appointments. Selecting a day, time, interviewer and place on schedule. The app used React and includes 2 customs hooks
+
+
+
 # Interview Scheduler
 
 ## Setup
