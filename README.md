@@ -24,6 +24,10 @@ Install dependencies with `npm install`.
     "react-scripts": "3.0.0"
 
 
+## Link to Scheduler-API for set-up
+https://github.com/lighthouse-labs/scheduler-api
+
+
 ## Running Webpack Development Server
 
 ```sh
