@@ -8,6 +8,15 @@ Built and tested a React scheduler app. Allowing users to create interview appoi
 
 Install dependencies with `npm install`.
 
+  "dependencies"
+    "axios": "^0.21.0",
+    "classnames": "^2.2.6",
+    "normalize.css": "^8.0.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-scripts": "3.0.0"
+
+
 ## Running Webpack Development Server
 
 ```sh
