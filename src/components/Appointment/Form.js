@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Button from "../Button";
 import InterviewerList from "../InterviewerList";
 
-// Update the Form component to add the name and interviewer to state using setName and setInterviewer.
 export default function Form(props) {
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [name, setName] = useState(props.name || "");

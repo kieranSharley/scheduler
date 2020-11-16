@@ -10,20 +10,6 @@ import Confirm from 'components/Appointment/Confirm';
 import './styles.scss';
 
 export default function Appointment(props) {
-//   return (
-//     <main>
-//       <Header
-//         time={props.time} />
-//       <article className="appointment" />
-//       {
-//         props.interview ? <Show
-//           student={props.interview.student}
-//           interviewer={props.interview.interviewer.name}
-//         /> : <Empty />
-//       }
-//     </main >
-//   );
-// }
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
