@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 
 export default function DayListItem(props) {
-  
+  // console.log("props",props)
  
   const formatSpots = () => {
     if (props.spots === 0) {

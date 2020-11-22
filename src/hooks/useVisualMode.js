@@ -11,9 +11,11 @@ const useVisualMode = (initialMode) => {
     setMode(mode);
   };
   const back = () => {
+
     const newHistory = [...history];
     if (history.length > 1) {
       newHistory.pop();
+      
     }
     setMode(newHistory[newHistory.length - 1]);
     setHistory(newHistory);

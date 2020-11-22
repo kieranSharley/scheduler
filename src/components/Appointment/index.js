@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Empty from './Empty.js';
 import Header from './Header.js';
 import Show from './Show.js';
@@ -8,6 +8,8 @@ import Status from 'components/Appointment/Status';
 import Error from 'components/Appointment/Error';
 import Confirm from 'components/Appointment/Confirm';
 import './styles.scss';
+
+const {state, setState} = useState
 
 export default function Appointment(props) {
 
@@ -50,6 +52,18 @@ const { mode, transition, back } = useVisualMode(
       .then(() => transition(EMPTY))
       .catch(error => transition(ERROR_DELETE, true));
   }
+  const onEdit = function (name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer: interviewer,
+    };
+    setState(state, interview);
+    transition(EDIT);
+  };
+
+  const onDelete = function () {
+    transition(CONFIRM);
+  };
   return (
     <article
       className="appointment"

@@ -3,7 +3,6 @@ import axios from "axios";
 
 
 export default function useApplicationData(props) {
-
   const setDay = day => setState(prev => ({ ...prev, day }));
   const [state, setState] = useState({
     day: "Monday",
@@ -69,29 +68,29 @@ export default function useApplicationData(props) {
         name: "Sylvia Palmer",
         avatar: "https://i.imgur.com/LpaY82x.png"
       },
-       "2": {
-         id: 2,
-         name: "Tori Malcolm",
-         avatar: "https://i.imgur.com/Nmx0Qxo.png"
+      "2": {
+        id: 2,
+        name: "Tori Malcolm",
+        avatar: "https://i.imgur.com/Nmx0Qxo.png"
       },
-       "3": {
-         id: 3,
-         name: "Mildred Nazir",
-         avatar: "https://i.imgur.com/T2WwVfS.png"
+      "3": {
+        id: 3,
+        name: "Mildred Nazir",
+        avatar: "https://i.imgur.com/T2WwVfS.png"
       },
-       "4": {
-         id: 4,
-         name: "Cohana Roy",
-         avatar: "https://i.imgur.com/FK8V841.jpg"
+      "4": {
+        id: 4,
+        name: "Cohana Roy",
+        avatar: "https://i.imgur.com/FK8V841.jpg"
       },
-       "5": {
-         id: 5,
-         name: "Sven Jones",
-         avatar: "https://i.imgur.com/twYrpay.jpg"
-        }
-     }
+      "5": {
+        id: 5,
+        name: "Sven Jones",
+        avatar: "https://i.imgur.com/twYrpay.jpg"
+      }
+    }
     ]
-  
+
   });
 
 
@@ -101,7 +100,7 @@ export default function useApplicationData(props) {
       axios.get("/api/appointments"),
       axios.get("/api/interviewers")
     ]).then((all) => {
-      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}));
+      setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
     });
   }, []);
 
@@ -113,7 +112,7 @@ export default function useApplicationData(props) {
   function cancelInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview}
+      interview: { ...interview }
     };
     const appointments = {
       ...state.appointments,
@@ -124,7 +123,7 @@ export default function useApplicationData(props) {
 
     const dayObj = {
       ...state.days[dayIndex],
-      spots:  state.days[dayIndex].spots + 1
+      spots: state.days[dayIndex].spots + 1
     };
     const days = state.days;
 
@@ -132,14 +131,13 @@ export default function useApplicationData(props) {
 
     return axios.delete(`/api/appointments/${id}`)
       .then((response) => {
-        setState({...state, appointments, days })
+        setState({ ...state, appointments, days });
       });
   }
 
-
-
+ 
   function bookInterview(id, interview) {
-  
+
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -148,29 +146,30 @@ export default function useApplicationData(props) {
       ...state.appointments,
       [id]: appointment
     };
-  
+
     const dayIndex = spotsRemaining(state.day);
 
     const dayObj = {
       ...state.days[dayIndex],
-      spots:  state.days[dayIndex].spots - 1
+      spots: state.days[dayIndex].spots
     };
-    const days = state.days;
+    if (state.appointments[id].interview === null) {
+      dayObj.spots = dayObj.spots -1
+    }
 
-
+    const days = [...state.days]
     days[dayIndex] = dayObj;
 
     return axios.put(`/api/appointments/${id}`, appointment)
       .then((response) => {
-        console.log('axios',response)
-        setState({...state, appointments, days});
+        setState({ ...state, appointments, days });
       });
   }
 
-  return {	
+  return {
     state,
-    setDay,	
-    bookInterview,	
-    cancelInterview	
+    setDay,
+    bookInterview,
+    cancelInterview,
   };
 }
