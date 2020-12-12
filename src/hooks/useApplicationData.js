@@ -112,7 +112,7 @@ export default function useApplicationData(props) {
   function cancelInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }
+      interview: null
     };
     const appointments = {
       ...state.appointments,
@@ -123,9 +123,10 @@ export default function useApplicationData(props) {
 
     const dayObj = {
       ...state.days[dayIndex],
-      spots: state.days[dayIndex].spots + 1
+      spots: state.days[dayIndex].spots // + 1
     };
-    const days = state.days;
+    dayObj.spots = dayObj.spots +1;
+    let days = [...state.days];
 
     days[dayIndex] = dayObj;
 
